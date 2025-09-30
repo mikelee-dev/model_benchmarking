@@ -1,4 +1,4 @@
-> **Tool Experiment**: This repository tests AI-assisted development workflows using Cursor. It's experimental work showcasing rapid prototyping capabilities.
+> **Tool Experiment**: This repository tests AI-assisted development workflows using Cursor. It's experimental work.
 
 # Simple YOLO Model Benchmarking
 
