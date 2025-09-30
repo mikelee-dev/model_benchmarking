@@ -1,3 +1,5 @@
+> **Tool Experiment**: This repository tests AI-assisted development workflows using Cursor. It's experimental work showcasing rapid prototyping capabilities.
+
 # Simple YOLO Model Benchmarking
 
 A clean, minimal tool for benchmarking YOLO models using Ultralytics' built-in `model.val()` method. No complex framework - just simple, reliable model testing and comparison.
