@@ -1,0 +1,33 @@
+# Results
+results/
+runs/
+
+# Datasets
+datasets/
+
+# Model files
+*.pt
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# System
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+.venv
+env/
+venv/
