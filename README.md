@@ -276,3 +276,7 @@ This is a minimal tool designed for simplicity. If you need additional features,
 - Supporting more output formats
 - Adding batch processing capabilities
 - Integrating with other ML frameworks
+
+## Acknowledgments
+
+This project was developed with assistance from Cursor AI for code generation and optimization.
