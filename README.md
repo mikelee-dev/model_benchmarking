@@ -28,20 +28,26 @@ pip install -r requirements.txt
 ### 2. Test a Single Model
 ```bash
 # Uses COCO8 dataset (downloaded automatically)
-python simple_benchmark.py --model yolov8l --dataset coco8.yaml
+python test.py --model yolov8l --dataset coco8.yaml
 ```
 
 ### 3. Compare Multiple Models
 ```bash
 # Models and dataset downloaded automatically on first run
-python simple_benchmark.py --models yolov8l yolo11l yolov8s-world --dataset coco8.yaml
+python test.py --models yolov8l yolo11l yolov8s-world --dataset coco8.yaml
+```
+
+### 4. Train a Model
+```bash
+# Train YOLOv8n on COCO8 dataset
+python train.py --model yolov8n.pt --epochs 10
 ```
 
 ## 📊 Example Usage
 
 ### Single Model Test
 ```bash
-$ python simple_benchmark.py --model yolov8l --dataset coco8.yaml
+$ python test.py --model yolov8l --dataset coco8.yaml
 
 Testing yolov8l on coco8.yaml
 Results saved to results/yolov8l_results.json
@@ -63,7 +69,7 @@ Results saved to results/yolov8l_results.json
 
 ### Model Comparison
 ```bash
-$ python simple_benchmark.py --models yolov8l yolo11l yolov8s-world --dataset coco8.yaml
+$ python test.py --models yolov8l yolo11l yolov8s-world --dataset coco8.yaml
 
 === COMPARISON RESULTS ===
 Model           mAP@0.5    Precision  Recall     Time(s) 
@@ -73,16 +79,40 @@ yolo11l             96.7%     90.9%     86.2%    8.0
 yolov8s-world       84.9%     63.6%     76.7%    4.7
 ```
 
+### Model Training
+```bash
+$ python train.py --model yolov8n.pt --epochs 10 --batch 16
+
+Training yolov8n.pt on COCO8 dataset...
+Epochs: 10, Image size: 640, Batch size: 16
+
+Training completed in 45.2 seconds
+Model saved to: runs/detect/train
+```
+
 ## 🔧 Command Line Options
 
+### Testing Script (`test.py`)
 ```bash
-python simple_benchmark.py [OPTIONS]
+python test.py [OPTIONS]
 
 Options:
   --model MODEL        Single model to test (e.g., yolov8l)
   --models MODEL ...   Multiple models to compare
   --dataset PATH       Dataset YAML file path (default: coco8.yaml)
   --output DIR         Output directory (default: results)
+  --help               Show help message
+```
+
+### Training Script (`train.py`)
+```bash
+python train.py [OPTIONS]
+
+Options:
+  --model MODEL        Model name (e.g., yolov8n.pt, yolov8s.pt, yolov8m.pt, yolov8l.pt, yolov8x.pt)
+  --epochs N           Number of training epochs (default: 10)
+  --imgsz SIZE         Image size for training (default: 640)
+  --batch SIZE         Batch size (default: 16)
   --help               Show help message
 ```
 
@@ -113,19 +143,27 @@ All Ultralytics-compatible YOLO models:
 ### 1. Model Selection
 ```bash
 # Compare different YOLO variants
-python simple_benchmark.py --models yolov8n yolov8s yolov8m yolov8l yolov8x --dataset your_dataset.yaml
+python test.py --models yolov8n yolov8s yolov8m yolov8l yolov8x --dataset your_dataset.yaml
 ```
 
 ### 2. Performance Analysis
 ```bash
 # Test specific model performance
-python simple_benchmark.py --model yolov8l --dataset datasets/coco8.yaml --output analysis_results
+python test.py --model yolov8l --dataset datasets/coco8.yaml --output analysis_results
 ```
 
 ### 3. Quick Benchmarking
 ```bash
 # Fast comparison of two models
-python simple_benchmark.py --models yolov8l yolo11l --dataset datasets/coco8.yaml
+python test.py --models yolov8l yolo11l --dataset datasets/coco8.yaml
+```
+
+### 4. Model Training
+```bash
+# Train different model sizes
+python train.py --model yolov8n.pt --epochs 20 --batch 32
+python train.py --model yolov8s.pt --epochs 15 --batch 16
+python train.py --model yolov8l.pt --epochs 10 --batch 8
 ```
 
 ## 🔍 Dataset Format
@@ -154,10 +192,10 @@ cp /path/to/your/custom_model.pt ./custom_model.pt
 **2. Test your custom model:**
 ```bash
 # Test single custom model
-python simple_benchmark.py --model custom_model --dataset coco8.yaml
+python test.py --model custom_model --dataset coco8.yaml
 
 # Compare custom model with others
-python simple_benchmark.py --models yolov8l custom_model --dataset coco8.yaml
+python test.py --models yolov8l custom_model --dataset coco8.yaml
 ```
 
 **3. Supported model formats:**
@@ -206,10 +244,13 @@ names: ['class1', 'class2', 'class3', 'class4', 'class5']
 **4. Test with your dataset:**
 ```bash
 # Test model on custom dataset
-python simple_benchmark.py --model yolov8l --dataset datasets/my_dataset.yaml
+python test.py --model yolov8l --dataset datasets/my_dataset.yaml
 
 # Compare models on custom dataset
-python simple_benchmark.py --models yolov8l yolo11l --dataset datasets/my_dataset.yaml
+python test.py --models yolov8l yolo11l --dataset datasets/my_dataset.yaml
+
+# Train model on custom dataset
+python train.py --model yolov8n.pt --epochs 20
 ```
 
 ### Label Format
@@ -251,7 +292,10 @@ names: ['car', 'truck', 'bus']
 EOF
 
 # 5. Test your dataset
-python simple_benchmark.py --model yolov8l --dataset datasets/vehicles.yaml
+python test.py --model yolov8l --dataset datasets/vehicles.yaml
+
+# 6. Train on your dataset
+python train.py --model yolov8n.pt --epochs 30 --batch 16
 ```
 
 ## ⚡ Performance Notes
